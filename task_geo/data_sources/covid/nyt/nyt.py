@@ -15,7 +15,7 @@ def nyt_connector():
         pandas.DataFrame
     """
     url = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv'
-    urlData = requests.get(url).content
+    urlData = requests.get(url, timeout=60).content
     return pd.read_csv(io.StringIO(urlData.decode('utf-8')))
 
 

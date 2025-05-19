@@ -44,7 +44,7 @@ def fr_covidata_connector():
         dataset (DataFrame with CSV Data)
     """
 
-    urlData = requests.get(url).content
+    urlData = requests.get(url, timeout=60).content
 
     dataset = pd.read_csv(io.StringIO(urlData.decode('utf-8')))
     return dataset

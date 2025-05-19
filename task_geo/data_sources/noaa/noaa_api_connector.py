@@ -132,7 +132,7 @@ def get_parse_response(urls):
     total = len(urls) - 1
     for i, url in enumerate(urls):
         logging.debug('Making request %s / %s', i + 1, total + 1)
-        response = requests.get(url)
+        response = requests.get(url, timeout=60)
         try:
             response.raise_for_status()
         except requests.exceptions.HTTPError:
