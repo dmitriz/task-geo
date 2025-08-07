@@ -1,9 +1,9 @@
 import itertools
 
 import pandas as pd
-import requests
 
 from task_geo.dataset_builders.nasa.references import PARAMETERS
+from security import safe_requests
 
 
 def nasa_data_loc(lat, lon, str_start_date, str_end_date, parms_str):
@@ -37,7 +37,7 @@ def nasa_data_loc(lat, lon, str_start_date, str_end_date, parms_str):
         f"lat={lat}&lon={lon}&{temporal_average}&{output_format}&"
         f"{user_community}&{user}"
     )
-    response = requests.get(url)
+    response = safe_requests.get(url)
     data_json = response.json()
     df = pd.DataFrame(data_json['features'][0]['properties']['parameter'])
     df['lon'] = lon
