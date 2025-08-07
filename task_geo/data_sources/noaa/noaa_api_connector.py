@@ -25,6 +25,7 @@ import requests
 from task_geo.data_sources.noaa.ftp_connector import download_noaa_files
 from task_geo.data_sources.noaa.references import (
     COUNTRY_AND_TERRITORY_CODES, DATA_DIRECTORY, TERRITORY_ACTIVE_STATIONS_MAP, load_dataset)
+from security import safe_requests
 
 logging.basicConfig(level=logging.DEBUG)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
@@ -132,7 +133,7 @@ def get_parse_response(urls):
     total = len(urls) - 1
     for i, url in enumerate(urls):
         logging.debug('Making request %s / %s', i + 1, total + 1)
-        response = requests.get(url)
+        response = safe_requests.get(url)
         try:
             response.raise_for_status()
         except requests.exceptions.HTTPError:
